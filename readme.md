@@ -9,6 +9,13 @@
 * Insomnia
 * REST
 
+## Diagrama do banco de dados
+
+Para visualizar o diagrama [clique aqui](https://github.com/david27alves/brisapix-api/blob/main/files_util/Diagrama%20banco%20de%20dados.pdf).
+
+## Arquivo de rotas do Insomnia
+
+Para baixar o arquivo de rotas [clique aqui](https://github.com/david27alves/brisapix-api/raw/main/Rotas%20Insomnia).
 
 ## Docker
 
