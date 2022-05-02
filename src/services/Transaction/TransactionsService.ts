@@ -80,14 +80,11 @@ export async function getAllTransactionsService() {
 }
 
 
-type TransactionReq = {
-   id: string;
-}
 /*
 * Aqui a função getAllTransactionsByUserService recebe o id do usuario para retornar
 * todas as transações realizadas por ele
 */
-export async function getAllTransactionsByUserService({ id }: TransactionReq) {
+export async function getAllTransactionsByUserService( id: string ) {
     
     //
     const keysPixRepository = AppDataSource.getRepository(KeyPix);

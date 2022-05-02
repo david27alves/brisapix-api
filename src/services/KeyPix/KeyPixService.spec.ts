@@ -14,29 +14,35 @@ afterAll(() => {
 
 describe("Intermediario", () => {
 
-    const userData: User = {
+    const userData1: User = {
         name: "Test User",
         phone: "(99)99999-9999",
         email: "test@test.com"
     }
 
+    const userData2: User = {
+        name: "Test User2",
+        phone: "(99)8888-8888",
+        email: "test2@test.com"
+    }
+
     it("O sistema deve ser capaz de cadastrar chaves PIX para os usuários já cadastrados.", async () => {
 
         // aqui o teste consulta o user e espera nao encontrar
-        const user = await getUserByEmailService(userData.email);
+        const user = await getUserByEmailService(userData1.email);
 
         expect(user).toBeNull();
         
         // aqui ele cria o user e espera receber
-        await createUserService(userData);
+        await createUserService(userData1);
 
-        const newUser = await getUserByEmailService(userData.email);
+        const newUser = await getUserByEmailService(userData1.email);
 
         expect(newUser).toBeDefined();
         
-        expect(userData.name).toEqual(newUser.name);
-        expect(userData.phone).toEqual(newUser.phone);
-        expect(userData.email).toEqual(newUser.email);
+        expect(userData1.name).toEqual(newUser.name);
+        expect(userData1.phone).toEqual(newUser.phone);
+        expect(userData1.email).toEqual(newUser.email);
 
         
         const keyPixData1: KeyPix = {
@@ -75,21 +81,64 @@ describe("Intermediario", () => {
 
     });
 
-    /*it("Uma chave não poderá ser cadastrada mais de uma vez.", async () => {
-            
-        console.log(await createKeyPixService(keyPixData4));
+    it("Uma chave não poderá ser cadastrada mais de uma vez.", async () => {
+        
+        const newUser = await getUserByEmailService(userData1.email);
+
+        const keyPixData1: KeyPix = {
+            valueKeyPix: "test1@test.com",
+            idUser: newUser.id
+        }
+
+        let result = await createKeyPixService(keyPixData1);
+        expect(result).toBeInstanceOf(Error);
+        
+        
         
     });
 
     it("Cada usuário poderá ter no máximo 3 chaves.", async() => {
-                
-        await createKeyPixService(keyPixData2);
-        await createKeyPixService(keyPixData3);
-        await createKeyPixService(keyPixData4);
+        
+        await createUserService(userData2);
 
+        const newUser = await getUserByEmailService(userData2.email);
+        
+        const keyPixData1: KeyPix = {
+            valueKeyPix: "test5@test.com",
+            idUser: newUser.id
+        }
+
+        const keyPixData2: KeyPix = {
+            valueKeyPix: "test2@test.com",
+            idUser: newUser.id
+        }
+
+        const keyPixData3: KeyPix = {
+            valueKeyPix: "test3@test.com",
+            idUser: newUser.id
+        }
+
+        const keyPixData4: KeyPix = {
+            valueKeyPix: "test4@test.com",
+            idUser: newUser.id
+        }
+
+
+        let result = await createKeyPixService(keyPixData1);
+        expect(result).not.toBeInstanceOf(Error);
+        
+        result = await createKeyPixService(keyPixData2);
+        expect(result).not.toBeInstanceOf(Error);
+        
+        result = await createKeyPixService(keyPixData3);
+        expect(result).not.toBeInstanceOf(Error);
+        
+        result = await createKeyPixService(keyPixData4);
+        expect(result).toBeInstanceOf(Error);
+        
         const newKeyPixExc = await getKeyPixByValueService(keyPixData4.valueKeyPix);
         
         expect(newKeyPixExc).toBeNull();
-    });*/
+    });
 
 });

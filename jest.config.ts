@@ -1,7 +1,11 @@
+
+
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
+import * as dotenv from "dotenv";
+dotenv.config({ path: ".env.test" })
 
 export default {
   // All imported modules in your tests should be mocked automatically

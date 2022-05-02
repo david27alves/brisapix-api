@@ -3,10 +3,9 @@ dotenv.config();
 
 import "reflect-metadata";
 import express from "express";
+import errorHandler from "./errorHandlerMiddlaware"
 
 import { initializeDataSource } from "./data-source";
-
-console.log("xxx", process.env.DB_PASS)
 
 import { routes } from "./routes";
 
@@ -15,6 +14,8 @@ const port: number = 3000;
 
 app.use(express.json());
 app.use(routes);
+
+app.use(errorHandler);
 
 initializeDataSource();
 

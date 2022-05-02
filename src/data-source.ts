@@ -10,13 +10,11 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 
-
 import { isTesting } from "./test-utils/TestUtils"; 
-console.log("xxx", process.env.DB_PASS)
+
 
 function resolveDataSource() {
 
-    
     if (isTesting()) {
         return new DataSource({
             name: 'default',

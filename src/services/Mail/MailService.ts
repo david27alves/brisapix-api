@@ -23,19 +23,7 @@ function resolveSendMail() {
     * Caso o ambiente seja teste ele usa as configurações do mailtrap
     * 
     */
-    if (isTesting()) {
-
-        return nodemailer.createTransport({
-            host: "smtp.mailtrap.io",
-            port: 2525,
-            auth: {
-              user: "d7467b4e853e2f",
-              pass: "073948811c972a"
-            }
-          });
-
-    }
-
+    
     return nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: parseInt(process.env.EMAIL_PORT),

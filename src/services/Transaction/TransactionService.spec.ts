@@ -1,6 +1,6 @@
 import { TestHelper }  from "../../test-utils/TesteHelper";
 import { Transactions } from "../../entities/Transactions";
-import { getAllTransactionsByUserService } from "./TransactionsService";
+import { createTransactionService, getAllTransactionsService, getAllTransactionsByUserService } from "./TransactionsService";
 
 import { User } from "../../entities/Users";
 import { KeyPix } from "../../entities/KeysPix";
@@ -21,7 +21,7 @@ describe("create transaction", () => {
 
     it("deve ser possivel criar uma transacao pix", async () => {
 
-        /*
+        
         const userData: User = {
             name: "Test User",
             phone: "(99)99999-9999",
@@ -64,16 +64,22 @@ describe("create transaction", () => {
         expect(keyPixData.idUser).toEqual(newKeyPix.idUser);
 
 
-        const transactionData: Transactions = {
+        const transactionData = {
             value: 1.99,
-            idKeySend: newKeyPix.id,
-            idKeyReceiver: newKeyPix.id 
+            sendKeyPix: newKeyPix.id,
+            receiverKeyPix: newKeyPix.id,
+
         }
 
-        const transactions = getAllTransactionsByUserService(newUser.id)
-        */
+        const transactions = await getAllTransactionsByUserService(newUser.id);
+        
+        expect(transactions).toHaveLength(0);
+        
+        await createTransactionService(transactionData);
 
-        expect(2+2).toBe(4);
+        const TransactionResult = await getAllTransactionsService();
+
+        expect(TransactionResult[0].value).toEqual(transactionData.value);
 
 
     });
