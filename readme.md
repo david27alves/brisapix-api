@@ -132,6 +132,38 @@ Response
 ]
 ```
 
+### Cadastrando transação
+
+> **post** `/transactions`
+
+Request
+
+```
+{
+	"value": 1.99,
+	"sendKeyPix": "firstkeypix",
+	"receiverKeyPix": "secondkeypix"
+}
+```
+
+Response
+
+```
+{
+	"id": "fefe861e-fd28-4eb4-ba73-bac128e25259",
+	"value": 1.99,
+	"idKeySend": "39f41f42-c851-40b1-9013-f68bf43f9818",
+	"idKeyReceiver": "4654b257-2e78-43a6-9396-fe03f0fb1b93"
+}
+```
+
+### Listando transações pix
+
+
+
+
+
+
 
 
 
