@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetAllTransactionsService } from "../../services/Transaction/GetAllTransactionsService";
+import { GetAllTransactionsService } from "../../services/Transaction/GetAllTransactionsService_old";
 
 export class GetAllTrransactionsController {
 

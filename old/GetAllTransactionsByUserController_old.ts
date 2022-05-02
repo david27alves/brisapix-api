@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Transaction } from "../../entities/Transaction";
-import { GetAllTransactionsByUserService } from "../../services/Transaction/GetAllTransactionsByUserService";
+import { GetAllTransactionsByUserService } from "../../services/Transaction/GetAllTransactionsByUserService_old";
 
 
 

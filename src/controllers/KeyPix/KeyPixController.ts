@@ -1,15 +1,11 @@
 import { Request, Response } from "express";
-import { CreateKeyPixService } from "../../services/KeyPix/CreateKeyPixService";
-import { GetAllKeysPixService } from "../../services/KeyPix/GetAllKeysPixService";
-
-
+import { createKeyPixService, getAllKeysPixService } from "../../services/KeyPix/KeyPixService";
 
 export async function createKeyPix(request: Request, response: Response) {
-    const { valor_chave_pix, id_user } = request.body;
+    
+    const { valueKeyPix, idUser } = request.body;
 
-    const service = new CreateKeyPixService();
-
-    const result = await service.execute({ valor_chave_pix, id_user });
+    const result = await createKeyPixService({ valueKeyPix, idUser });
 
     if (result instanceof Error) {
         return response.status(400).json(result.message);
@@ -19,13 +15,21 @@ export async function createKeyPix(request: Request, response: Response) {
 
 }
 
-export async function getAllKeyPix(request: Request, response: Response) {
+export async function getAllKeysPix(request: Request, response: Response) {
 
-    const service = new GetAllKeysPixService();
-
-    const result = await service.execute();
+    const result = await getAllKeysPixService();
 
     return response.json(result);
 
 }
+
+/*
+export async function getKeyPixById(request: Request, response: Response) {
+    
+    const id = request.params.id;
+
+    const result = await getKeyPixByIdService(id);
+
+    return response.json(result);
+}*/
 

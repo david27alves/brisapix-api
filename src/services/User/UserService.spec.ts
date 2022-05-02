@@ -1,7 +1,7 @@
-//import { CreateUserService } from "./UserService";
-import { User } from "../../entities/User";
-import { TestHelper }  from "./TesteHelper";
-import { createUser } from "./UserService"
+
+import { User } from "../../entities/Users";
+import { TestHelper }  from "../../test-utils/TesteHelper";
+import { createUserService, getUserByEmailService } from "./UserService"
 
 beforeAll(async () => {
     await TestHelper.instance.setupTestDB();
@@ -11,26 +11,31 @@ afterAll(() => {
     TestHelper.instance.teardownTestDB();
 });
 
-
 describe("create user", () => {
 
-    it("criar user", async () => { 
+    it("deve ser possivel criar um usuario", async () => { 
         
         const userData: User = {
-            nome: "Test User",
-            telefone: "(99)99999-9999",
-            email: "test@teste.com"
+            name: "Test User",
+            phone: "(99)99999-9999",
+            email: "test@test.com"
         }
 
-        const { nome, telefone, email } = userData;
+        // aqui o teste consulta o user e espera nao encontrar
+        const user = await getUserByEmailService(userData.email);
 
+        expect(user).toBeNull();
+        
+        // aqui ele cria o user e espera receber
+        await createUserService(userData);
 
-        const user = await createUser({ nome, telefone, email });
+        const newUser = await getUserByEmailService(userData.email);
 
-        //console.log(user);
+        expect(newUser).toBeDefined();
 
-        //expect(user).toHaveProperty("id");
-        expect(2 + 3).toBe(5);
+        expect(userData.name).toEqual(newUser.name);
+        expect(userData.phone).toEqual(newUser.phone);
+        expect(userData.email).toEqual(newUser.email);
 
     });
 });

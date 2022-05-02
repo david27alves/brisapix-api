@@ -1,25 +1,31 @@
 import { AppDataSource } from "../../data-source";
-import { User } from "../../entities/User";
+import { User } from "../../entities/Users";
 
 type UserRequest = {
-    nome: string;
-    telefone: string;
+    name: string;
+    phone: string;
     email: string;
 };
 
-export async function createUser({ nome, telefone, email }: UserRequest): Promise<User | Error> {
+export async function createUserService({ name, phone, email }: UserRequest): Promise<User | Error> {
     
+    // checa se todos os dados foram preenchidos
+    if (!name || !phone || !email) {
+        return new Error("Verifique se todas as informações foram preenchidas!");    
+    }
+
     const userRepository = AppDataSource.getRepository(User);
     
-    const res = await userRepository.findOneBy({ email })
+    // checando se o email já foi cadastrado
+    const userResult = await userRepository.findOneBy({ email })
 
-    if (res) {            
+    if (userResult) {            
         return new Error("Email já cadastrado!");
     }
 
     const user = userRepository.create({
-        nome,
-        telefone,
+        name,
+        phone,
         email
     });
 
@@ -30,11 +36,22 @@ export async function createUser({ nome, telefone, email }: UserRequest): Promis
 }
 
 
-export async function getAllUsers() {
+export async function getAllUsersService() {
 
     const userRepository = AppDataSource.getRepository(User);
 
     const users = await userRepository.find();
 
     return users;
+}
+
+// função usada para validar testes de user cadastrado 
+export async function getUserByEmailService(email: string) {
+
+    const userRepository = AppDataSource.getRepository(User);
+
+    const user  = await userRepository.findOneBy({ email });
+
+    return user;
+
 }

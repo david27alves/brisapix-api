@@ -1,3 +1,9 @@
+/*
+*
+*  Entidade que representa a tabela users
+*
+*/
+
 import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
@@ -8,14 +14,15 @@ export class User {
     id?: string;
     
     @Column()
-    nome: string;
+    name: string;
 
     @Column()
-    telefone: string;
+    phone: string;
 
     @Column()
     email: string;
 
+    // Caso o id venha vazio ele gera um uuid 
     constructor() {
         if(!this.id) {
             this.id = uuid();

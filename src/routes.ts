@@ -1,25 +1,21 @@
-import { Router, Request, Response } from "express";
-import { CreateKeyPixController } from "./controllers/KeyPix/CreateKeyPixController";
-import { GetAllKeysPixController } from "./controllers/KeyPix/GetAllKeysPixController";
-import { CreateTransactionController } from "./controllers/Transaction/CreateTransactionController";
-import { GetAllTransactionsByUserController } from "./controllers/Transaction/GetAllTransactionsByUserController";
-import { GetAllTrransactionsController } from "./controllers/Transaction/GetAllTransactionsController";
-import { CreateUserController } from "./controllers/User/CreateUserController";
-import { GetAllUsersController } from "./controllers/User/GetAllUsersController";
+import { Router } from "express";
 
 import * as KeyPixController from "./controllers/KeyPix/KeyPixController";
+import * as TransactionsController from "./controllers/Transaction/TransactionController";
+import * as UserController from "./controllers/User/UserController";
 
 const routes = Router();
 
-routes.post("/users", new CreateUserController().handle);
-routes.get("/users", new GetAllUsersController().handle);
+routes.post("/users", UserController.createUser);
+routes.get("/users", UserController.getAllUsers);
 
 routes.post("/keyspix", KeyPixController.createKeyPix);
-routes.get("/keyspix", KeyPixController.getAllKeyPix);
+routes.get("/keyspix", KeyPixController.getAllKeysPix);
+//routes.get("/keyspix/:id", KeyPixController.getKeyPixById);
 
-routes.post("/transactions", new CreateTransactionController().handle);
-routes.get("/transactions", new GetAllTrransactionsController().handle);
-routes.get("/transactions/:id", new GetAllTransactionsByUserController().handle);
+routes.post("/transactions", TransactionsController.createTransaction);
+routes.get("/transactions", TransactionsController.getAllTransactions);
+routes.get("/transactions/:id", TransactionsController.getAllTransactionsByUser);
 
 
 export { routes };

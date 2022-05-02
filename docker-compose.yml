@@ -1,0 +1,29 @@
+version: '3.0'
+
+services:
+  app:
+    build: .
+    environment:
+      DB_HOST: postgres
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: desafio_brisalabs
+    ports:
+      - "5432:5432"
+  
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@mail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "16543:80"

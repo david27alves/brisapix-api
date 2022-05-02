@@ -14,29 +14,29 @@ export class CreateTransactions1651330052552 implements MigrationInterface {
                         isPrimary: true
                     },
                     {
-                        name: "valor",
+                        name: "value",
                         type: "float8",
                     },
                     {
-                        name: "id_chave_enviou",
+                        name: "idKeySend",
                         type: "uuid"
                     },
                     {
-                        name: "id_chave_recebeu",
+                        name: "idKeyReceiver",
                         type: "uuid"
                     }
                 ],
                 foreignKeys: [
                     {
-                        name: "fk_transactions_id_chave_enviou",
-                        columnNames: ["id_chave_enviou"],
-                        referencedTableName: "keys_pix",
+                        name: "fk_transactions_idKeySend",
+                        columnNames: ["idKeySend"],
+                        referencedTableName: "keyspix",
                         referencedColumnNames: ["id"]
                     },
                     {
-                        name: "fk_transactions_id_chave_recebeu",
-                        columnNames: ["id_chave_recebeu"],
-                        referencedTableName: "keys_pix",
+                        name: "fk_transactions_idKeyReceiver",
+                        columnNames: ["idKeyReceiver"],
+                        referencedTableName: "keyspix",
                         referencedColumnNames: ["id"]
                     }
                 ]

@@ -6,7 +6,7 @@ export class CreateKeys1651288691257 implements MigrationInterface {
 
         await queryRunner.createTable(
             new Table({
-                name: "keys_pix",
+                name: "keyspix",
                 columns: [
                     {
                         name: "id",
@@ -14,19 +14,19 @@ export class CreateKeys1651288691257 implements MigrationInterface {
                         isPrimary: true
                     },
                     {
-                        name: "valor_chave_pix",
+                        name: "valueKeyPix",
                         type: "varchar",
                         isUnique: true
                     },
                     {
-                        name: "id_user",
+                        name: "idUser",
                         type: "uuid"
                     }
                 ],
                 foreignKeys: [
                     {
                         name: "fk_keys_pix_users",
-                        columnNames: ["id_user"],
+                        columnNames: ["idUser"],
                         referencedTableName: "users",
                         referencedColumnNames: ["id"]
                     }
@@ -36,7 +36,7 @@ export class CreateKeys1651288691257 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("keys_pix");
+        await queryRunner.dropTable("keyspix");
     }
 
 }
